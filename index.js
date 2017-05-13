@@ -1,53 +1,42 @@
-var express = require('express')
+var express = require ('express')
 var app = express()
-var path = require('path')
+var exphbs = require('express-handlebars')
 var bodyParser = require('body-parser')
-var exphbs = require("express-handlebars")
 
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('hbs', exphbs({defaultLayout:'main', extname:'.hbs'}));
 app.set('view engine', '.hbs')
 
 
-//==========routing=========
+//===========routing------------
+
 app.route('/')
-	.get(function(req, res){
-		res.render('home');
-
+	.get(function(req,res){
+		res.render('resep')
 	})
-	.post(function(req, res){
-		var angka_1 = req.body.angka1
-		var angka_2 = req.body.angka2
+	.post(function(req,res){
+		var nama_resep = req.body.nama_resep
+		var deskripsi = req.body.deskripsi
+		var penulis = req.body.penulis
+		var cara_pembuatan = req.body.cara_pembuatan
 
-		if( angka_1 == "" && angka_2 == ""){
-			console.log("error! masukkan angka 1 dan angka 2")
-			res.send("error! masukkan angka 1 dan angka 2")
-		}else if( angka_1 == ""){
-			console.log("error! masukkan angka 1")
-			ree.send("error masukkan angka 1")
-		}else if( angka_2 == ""){
-			console.log("error!masukkan angka 2")
-			res.send("error! masukkan angka 2")
-		}else{
-			penjumlahan(angka_1, angka_2)
-
-		}
-		function penjumlahan(a, b){
-			var total = parseInt(a) + parseInt(b)
-
-			res.render("hasil", {
-				judul:"hasil penjumlahan",
-				hasil_penjumlahan: total
-			})
-		}
-
+		console.log(nama_resep)
+		console.log(deskripsi)
+		console.log(penulis)
+		console.log(cara_pembuatan)
 	})
 
-//========webserver=====
-app.listen(2000,function(){
-	console.log("ini adalah contoh webs sederhana dengan NodeJS")
+
+
+
+
+
+
+//=========webserver=======
+
+app.listen(2000, function(){
+	console.log("listen to port 2000")
+
 })
